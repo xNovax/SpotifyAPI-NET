@@ -8,7 +8,6 @@ namespace SpotifyAPI.SpotifyLocalAPI
 {
     public class SpotifyEventHandler
     {
-        private Boolean listen = false;
         private System.Timers.Timer timer;
         private SpotifyLocalAPIClass api;
         private SpotifyMusicHandler mh;

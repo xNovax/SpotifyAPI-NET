@@ -160,7 +160,7 @@ namespace SpotifyAPI.SpotifyLocalAPI
                 }
                 catch (WebException e)
                 {
-                    throw;
+                    Console.WriteLine("Error Message: " + e.Message);
                 }
                 using (MemoryStream ms = new MemoryStream(data))
                 {

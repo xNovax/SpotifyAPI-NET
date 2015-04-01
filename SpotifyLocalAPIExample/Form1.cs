@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Diagnostics;
 using System.Text;
@@ -82,6 +83,8 @@ namespace SpotifyAPI_Example
             eh.OnVolumeChange += new SpotifyEventHandler.VolumeChangeEventHandler(volumechange);
             eh.SetSynchronizingObject(this);
             eh.ListenForEvents(true);
+            WriteSongInfoToFile();
+
         }
         private void volumechange(VolumeChangeEventArgs e)
         {
@@ -100,6 +103,8 @@ namespace SpotifyAPI_Example
             pictureBox1.Image = await e.new_track.GetAlbumArtAsync(AlbumArtSize.SIZE_160);
             pictureBox2.Image = await e.new_track.GetAlbumArtAsync(AlbumArtSize.SIZE_640);
             label7.Text = mh.IsAdRunning().ToString();
+            WriteSongInfoToFile();
+
         }
         private void timechange(TrackTimeChangeEventArgs e)
         {
@@ -148,6 +153,14 @@ namespace SpotifyAPI_Example
                 mh.Mute();
             else
                 mh.UnMute();
+        }
+
+        public void WriteSongInfoToFile()
+        {
+            var writer = new StreamWriter("file.txt");
+            writer.WriteLine("Current Song: " + mh.GetCurrentTrack().GetTrackName() + " - " +
+                             mh.GetCurrentTrack().GetArtistName());
+            writer.Close();
         }
     }
 }
